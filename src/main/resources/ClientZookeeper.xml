@@ -20,10 +20,11 @@
 		<property name="sessionTimeout" value="3000" />
 		<property name="singleton" value="true" />
 	</bean>
-	<bean id="ThriftServiceClient" class="rpc.ThriftServiceClientConfig" init-method="load" destroy-method = "close">
+	<bean id="ThriftServiceClient" class="rpcClient.rpc.ThriftServiceClientConfig" init-method="load" destroy-method = "close">
         <property name="maxActive" value="100" />
         <property name="idleTime" value="30000" />
         <property name="timeout" value="100"/>
+		<property name="service" value="rpc.thrift.idl.rpcEngine"/>
         <property name="serverAddressProvider">
         	<bean class="rpcClient.zookeeper.impl.ThriftServerImpl" init-method = "zkStart" destroy-method = "close">
         		<property name="service" value="bj/algo/algoSvr/rpc" />
