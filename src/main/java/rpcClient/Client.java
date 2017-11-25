@@ -15,7 +15,7 @@ public class Client {
     public static void main(String[] args) {
         try {
             ApplicationContext context = new ClassPathXmlApplicationContext("ClientZookeeper.xml");
-            ThriftServiceClientConfig thriftClientProxy = (ThriftServiceClientConfig) context.getBean(ThriftServiceClientConfig.class);
+            ThriftServiceClientConfig thriftClientProxy = (ThriftServiceClientConfig) context.getBean("ThriftServiceClient");
             rpcEngine.Iface thriftClient = (rpcEngine.Iface)thriftClientProxy.getProxyClient();
             rpcRequest rpcRequest = new rpcRequest();
             rpcRequest.setRequest("Hello world");
