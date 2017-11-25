@@ -25,7 +25,6 @@ public class ThriftServerImpl implements ThriftServer {
 	private String service;
 	private PathChildrenCache cachedPath;
 	private CuratorFramework zkClient;
-	// 用来保存当前provider所接触过的地址记录
 	// 当zookeeper集群故障时,可以使用trace中地址,作为"备份"
 	//用来保存获取得到的thrift服务器IP和port
 	private final List<InetSocketAddress> container = new ArrayList<InetSocketAddress>();
@@ -35,22 +34,10 @@ public class ThriftServerImpl implements ThriftServer {
 	private Object lock = new Object();
 	// 默认权重
 	private static final Integer DEFAULT_WEIGHT = 1;
-
 	public void setService(String service) {
 		this.service = service;
 	}
 
-
-	public ThriftServerImpl() {
-	}
-
-	public ThriftServerImpl(CuratorFramework zkClient) {
-		this.zkClient = zkClient;
-	}
-
-	public void setZkClient(CuratorFramework zkClient) {
-		this.zkClient = zkClient;
-	}
 	/*
 	 * (non-Javadoc)
 	 * 这个方法将在所有的属性被初始化后调用,初始化操作
@@ -103,9 +90,6 @@ public class ThriftServerImpl implements ThriftServer {
 			protected void rebuild() throws Exception {
 				List<ChildData> children = cachedPath.getCurrentData();
 				if (children == null || children.isEmpty()) {
-					// 有可能所有的thrift server都与zookeeper断开了链接
-					// 但是,有可能,thrift client与thrift server之间的网络是良好的
-					// 因此此处是否需要清空container,是需要多方面考虑的.
 					container.clear();
 					logger.error("thrift rpcServer.server-cluster error....");
 					return;
@@ -191,5 +175,15 @@ public class ThriftServerImpl implements ThriftServer {
 	@Override
 	public String getService() {
 		return service;
+	}
+	public ThriftServerImpl() {
+	}
+
+	public ThriftServerImpl(CuratorFramework zkClient) {
+		this.zkClient = zkClient;
+	}
+
+	public void setZkClient(CuratorFramework zkClient) {
+		this.zkClient = zkClient;
 	}
 }

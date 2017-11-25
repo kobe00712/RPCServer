@@ -12,6 +12,7 @@ public class Client {
 
     public static void main(String[] args) {
         try {
+
             ThriftServiceClientConfig thriftServiceClientConfig = new ThriftServiceClientConfig();
             ThriftClientPool thriftClientPool = thriftServiceClientConfig.getClientPool();
             rpcEngine.Iface algoService = null;

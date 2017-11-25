@@ -1,11 +1,11 @@
-package rpcServer;
+package rpcServer.thrift;
 
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TThreadPoolServer;
 import org.apache.thrift.transport.TServerSocket;
 import rpc.thrift.idl.rpcEngine;
-import rpcServer.zookeeper.register;
+import rpcServer.zookeeper.ThriftServerAddressRegister;
 import java.lang.instrument.IllegalClassFormatException;
 import java.lang.reflect.Constructor;
 public class ThriftServiceServerFactory{
@@ -13,9 +13,9 @@ public class ThriftServiceServerFactory{
         private Integer priority = 1;// default
         private Object service;// serice实现类
         private ThriftServerIPLocation ipLocation;
-        private register addressReporter;
+        private ThriftServerAddressRegister addressReporter;
         private ServerThread serverThread;
-        private String configPath;
+        private String servicePath;
 
         public void init() throws Exception {
             if (ipLocation == null) {
@@ -59,7 +59,7 @@ public class ThriftServiceServerFactory{
             serverThread.start();
             // report
             if (addressReporter != null) {
-                addressReporter.report(configPath, hostname);
+                addressReporter.report(servicePath, hostname);
             }
         }
         class ServerThread extends Thread {
@@ -98,10 +98,10 @@ public class ThriftServiceServerFactory{
         public void setIpLocation(ThriftServerIPLocation ipLocation) {
         this.ipLocation = ipLocation;
     }
-        public void setAddressReporter(register addressReporter) {
+        public void setAddressReporter(ThriftServerAddressRegister addressReporter) {
         this.addressReporter = addressReporter;
     }
-        public void setConfigPath(String configPath) {
-        this.configPath = configPath;
+        public void setConfigPath(String servicePath) {
+        this.servicePath = servicePath;
     }
 }
