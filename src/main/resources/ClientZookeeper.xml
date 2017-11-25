@@ -11,7 +11,7 @@
            http://www.springframework.org/schema/tx">
 
     <!-- zookeeper   -->
-    <bean id="thriftZookeeper" class="zookeeper.ZookeeperFactory"
+    <bean id="thriftZookeeper" class="rpcClient.zookeeper.ZookeeperFactory"
 		destroy-method="close">
 		<property name="zkHosts"
 			value="**" />
@@ -25,7 +25,7 @@
         <property name="idleTime" value="30000" />
         <property name="timeout" value="100"/>
         <property name="serverAddressProvider">
-        	<bean class="com.sina.zookeeper.impl.ThriftServerImpl" init-method = "zkStart" destroy-method = "close">
+        	<bean class="rpcClient.zookeeper.impl.ThriftServerImpl" init-method = "zkStart" destroy-method = "close">
         		<property name="service" value="bj/algo/algoSvr/rpc" />
         		<property name="zkClient" ref="thriftZookeeper" />
         	</bean>
