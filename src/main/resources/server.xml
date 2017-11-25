@@ -20,7 +20,7 @@
     <property name="zookeeper" ref="thriftZookeeper"></property>
 </bean>
 <bean id="demoService" class="rpcServer.serviceImpl"/>
-<bean class="com.demo.thrift.ThriftServiceServerFactory" destroy-method="close">
+<bean class="com.demo.thrift.ThriftServiceServerFactory" init-method="init" destroy-method="close">
     <property name="service" ref="userService"></property>
     <property name="port" value="9090"></property>
     <property name="addressReporter" ref="sericeAddressReporter"></property>
