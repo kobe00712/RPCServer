@@ -2,8 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="RPCServer_main" target="1.8" />
-      <module name="RPCServer_test" target="1.8" />
+      <module name="frameWork_main" target="1.8" />
+      <module name="frameWork_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

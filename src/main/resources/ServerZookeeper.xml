@@ -14,7 +14,7 @@
     <bean id="thriftZookeeper" class="zookeeper.ZookeeperFactory"
           destroy-method="close">
         <property name="zkHosts"
-                  value="10.13.88.51:2281,10.13.88.52:2281,10.13.88.53:2281,10.13.88.54:2281,10.13.88.55:2281,10.13.88.56:2281,10.13.88.57:2281,10.13.88.58:2281,10.13.88.59:2281" />
+                  value="***" />
         <property name="namespace" value="NS" />
         <property name="connectionTimeout" value="3000" />
         <property name="sessionTimeout" value="3000" />

@@ -5,9 +5,7 @@ import org.apache.curator.framework.imps.CuratorFrameworkState;
 import org.apache.zookeeper.CreateMode;
 
 public class register {
-
         private CuratorFramework zookeeper;
-
         public void setZookeeper(CuratorFramework zookeeper) {
             this.zookeeper = zookeeper;
         }

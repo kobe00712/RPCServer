@@ -3,8 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/RPCServer.iml" filepath="$PROJECT_DIR$/RPCServer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/RPCServer_main.iml" filepath="$PROJECT_DIR$/.idea/modules/RPCServer_main.iml" group="RPCServer" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/RPCServer_test.iml" filepath="$PROJECT_DIR$/.idea/modules/RPCServer_test.iml" group="RPCServer" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/frameWork.iml" filepath="$PROJECT_DIR$/.idea/modules/frameWork.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/frameWork_main.iml" filepath="$PROJECT_DIR$/.idea/modules/frameWork_main.iml" group="frameWork" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/frameWork_test.iml" filepath="$PROJECT_DIR$/.idea/modules/frameWork_test.iml" group="frameWork" />
     </modules>
   </component>
 </project>

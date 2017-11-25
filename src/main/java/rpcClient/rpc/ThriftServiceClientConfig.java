@@ -5,7 +5,7 @@ import org.apache.thrift.TServiceClient;
 import org.apache.thrift.TServiceClientFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import zookeeper.ThriftServer;
+import rpcClient.zookeeper.ThriftServer;
 
 /*
  * 获取连接池中的一个thrift client
@@ -42,7 +42,7 @@ public class ThriftServiceClientConfig{
 				logger.info(Thread.currentThread().getName());
 				ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 				// 加载Client.Factory类 // *) 内部类的表, 不用'.', 而使用'$'分割
-				String service = "com.sina.algo.engine.idl.AlgoEngine";
+				String service = "rpc.thrift.idl.rpcEngine";
 				@SuppressWarnings("unchecked")
 				Class<TServiceClientFactory<TServiceClient>> fi = (Class<TServiceClientFactory<TServiceClient>>) classLoader.loadClass(service + "$rpcClient.Client$Factory");
 				TServiceClientFactory<TServiceClient> clientFactory = fi.newInstance();
@@ -55,7 +55,6 @@ public class ThriftServiceClientConfig{
 			}
 		}
 	}
-
 	public void close() {
 		if (serverAddressProvider != null) {
 			serverAddressProvider.close();

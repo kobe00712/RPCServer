@@ -14,8 +14,7 @@ import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import zookeeper.ThriftServer;
-
+import rpcClient.zookeeper.ThriftServer;
 import java.net.InetSocketAddress;
 
 /*
@@ -37,7 +36,6 @@ public class ThriftClientPool extends ThriftPool<TServiceClient> {
 			this.clientFactory = clientFactory;
 			this.timeout = timeout;
 		}
-
 		/*
 		 * @see org.apache.commons.pool.BasePoolableObjectFactory#makeObject()
 		 * 创建非阻塞IO的thrift

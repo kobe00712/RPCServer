@@ -1,12 +1,10 @@
 package rpcServer;
 
 import org.apache.http.conn.util.InetAddressUtils;
-
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
-
 public class ThriftServerIPLocation {
     public String getLocalIP()
     {
