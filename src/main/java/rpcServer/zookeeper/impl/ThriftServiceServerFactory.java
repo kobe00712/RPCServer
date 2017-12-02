@@ -5,6 +5,7 @@ import java.lang.instrument.IllegalClassFormatException;
 import java.lang.reflect.Constructor;
 
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.thrift.TProcessor;
 import org.apache.thrift.TProcessorFactory;
 import org.apache.thrift.protocol.TBinaryProtocol;
