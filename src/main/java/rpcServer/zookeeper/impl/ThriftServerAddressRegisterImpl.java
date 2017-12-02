@@ -3,7 +3,6 @@ package rpcServer.zookeeper.impl;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.imps.CuratorFrameworkState;
 import org.apache.zookeeper.CreateMode;
-import rpcServer.zookeeper.ThriftServerAddressRegister;
 
 public class ThriftServerAddressRegisterImpl implements ThriftServerAddressRegister {
     private CuratorFramework zookeeper;

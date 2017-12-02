@@ -1,11 +1,13 @@
 package rpcServer.thrift;
 
+import org.apache.thrift.TProcessor;
+import org.apache.thrift.TProcessorFactory;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.server.TServer;
-import org.apache.thrift.server.TThreadPoolServer;
-import org.apache.thrift.transport.TServerSocket;
-import rpc.thrift.idl.rpcEngine;
-import rpcServer.zookeeper.ThriftServerAddressRegister;
+import org.apache.thrift.server.TThreadedSelectorServer;
+import org.apache.thrift.transport.TFramedTransport;
+import org.apache.thrift.transport.TNonblockingServerSocket;
+
 import java.lang.instrument.IllegalClassFormatException;
 import java.lang.reflect.Constructor;
 public class ThriftServiceServerFactory{
@@ -33,20 +35,27 @@ public class ThriftServiceServerFactory{
                 throw new IllegalClassFormatException("service-class should implements Iface");
             }
             // reflect,load "Processor";
-            rpcEngine.Processor processor = null;
+            TProcessor processor = null;
+            String serviceName = null;
+            //rpcEngine.Processor processor = null;
             for (Class clazz : interfaces) {
                 String cname = clazz.getSimpleName();
                 if (!cname.equals("Iface")) {
                     continue;
                 }
-                String pname = clazz.getEnclosingClass().getName() + "$Processor";
+                //String pname = clazz.getEnclosingClass().getName() + "$Processor";
+                serviceName = clazz.getEnclosingClass().getName();
+                String pname = serviceName + "$Processor";
+
                 try {
                     Class pclass = classLoader.loadClass(pname);
-                    if (!pclass.isAssignableFrom(rpcEngine.Processor.class)) {
+                    if (!TProcessor.class.isAssignableFrom(pclass)) {
+                    //if (!pclass.isAssignableFrom(rpcEngine.Processor.class)) {
                         continue;
                     }
                     Constructor constructor = pclass.getConstructor(clazz);
-                    processor = (rpcEngine.Processor) constructor.newInstance(service);
+                    //processor = (rpcEngine.Processor) constructor.newInstance(service);
+                    processor = (TProcessor) constructor.newInstance(service);
                     break;
                 } catch (Exception e) {
                     //
@@ -64,12 +73,19 @@ public class ThriftServiceServerFactory{
         }
         class ServerThread extends Thread {
             private TServer server;
-            ServerThread(rpcEngine.Processor processor, int port) throws Exception {
-                TServerSocket serverTransport = new TServerSocket(port);
+            ServerThread(TProcessor processor, int port) throws Exception {
+               /* TServerSocket serverTransport = new TServerSocket(port);
                 TBinaryProtocol.Factory portFactory = new TBinaryProtocol.Factory(true, true);
                 server = new TThreadPoolServer(new TThreadPoolServer.Args(serverTransport)
                         .processor(processor)
-                        .protocolFactory(portFactory));
+                        .protocolFactory(portFactory));*/
+                TNonblockingServerSocket serverTransport = new TNonblockingServerSocket(port);
+                TThreadedSelectorServer.Args tArgs = new TThreadedSelectorServer.Args(serverTransport);
+                TProcessorFactory processorFactory = new TProcessorFactory(processor);
+                tArgs.processorFactory(processorFactory);
+                tArgs.transportFactory(new TFramedTransport.Factory());
+                tArgs.protocolFactory( new TBinaryProtocol.Factory(true, true));
+                server = new TThreadedSelectorServer(tArgs);
             }
             @Override
             public void run(){

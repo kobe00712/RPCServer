@@ -40,7 +40,6 @@ dependencies {
     compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
     // thrift
     compile 'org.apache.thrift:libthrift:0.10.0'
-    compile 'org.apache.thrift:libfb303:0.10.0'
     // zookeeper
     compile('org.apache.zookeeper:zookeeper:3.4.6') {
         exclude group: 'junit', module: 'junit'

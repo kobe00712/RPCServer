@@ -32,6 +32,7 @@ public class InfluxClientImpl implements InfluxDBClient {
     /**
      * 仅Spring容器启动时调用
      */
+    private static final Logger logger = LoggerFactory.getLogger(InfluxClientImpl.class);
     public void initConnection() {
         logger.info("initConnection() : init connection to {}.", url);
         influxDB = InfluxDBFactory.connect(url, username, password);
