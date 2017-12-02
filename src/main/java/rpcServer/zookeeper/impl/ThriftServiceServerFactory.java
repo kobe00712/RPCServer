@@ -14,13 +14,14 @@ import org.apache.thrift.server.TThreadedSelectorServer;
 import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TNonblockingServerSocket;
 
+import org.springframework.beans.factory.InitializingBean;
 import rpcServer.ThriftException;
 
 
 /**
  * 服务端注册服务工厂
  */
-public class ThriftServiceServerFactory implements InitializingBean ,Closeable{
+public class ThriftServiceServerFactory implements InitializingBean,Closeable{
     // 服务注册本机端口
     private Integer port = 8299;
     // 优先级
