@@ -31,10 +31,10 @@ jar {
 
 
 dependencies {
-    compile 'org.springframework:spring-content:4.1.9.RELEASE'
-    compile 'org.springframework:spring-web:4.1.9.RELEASE'
-    runtime 'org.springframework:spring-webmvc:4.1.9.RELEASE'
-
+    compile 'org.springframework:spring-web:3.0.2.RELEASE'
+    compile 'org.springframework:spring-jdbc:3.0.2.RELEASE'
+    runtime 'org.springframework:spring-context-support:3.0.2.RELEASE'
+    runtime 'org.springframework:spring-webmvc:3.0.2.RELEASE'
     compile group: 'com.codahale.metrics', name: 'metrics-core', version: '3.0.2'
     compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
     // thrift
