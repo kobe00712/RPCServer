@@ -11,19 +11,24 @@
            http://www.springframework.org/schema/tx">
 
 <!-- zookeeper   -->
-<bean id="thriftZookeeper" class="rpcServer.zookeeper.register"
-      destroy-method="close">
-    <property name="connectString" value="127.0.0.1:2181"></property>
-    <property name="namespace" value="demo/thrift-service"></property>
-</bean>
-  <bean id="sericeAddressReporter" class="rpcServer.zookeeper.register" destroy-method="close">
+    <bean id="thriftZookeeper" class="rpcClient.zookeeper.ZookeeperFactory"
+          destroy-method="close">
+        <property name="zkHosts"
+                  value="**" />
+        <property name="namespace" value="rpc" />
+        <property name="connectionTimeout" value="3000" />
+        <property name="sessionTimeout" value="3000" />
+        <property name="singleton" value="true" />
+    </bean>
+    <bean id="sericeAddressReporter" class="rpcServer.zookeeper.impl.ThriftServerAddressRegisterImpl" destroy-method="close">
     <property name="zookeeper" ref="thriftZookeeper"></property>
 </bean>
-<bean id="demoService" class="rpcServer.serviceImpl"/>
-<bean class="com.demo.thrift.ThriftServiceServerFactory" init-method="init" destroy-method="close">
+<bean id="userService" class="rpcServer.serviceImpl"/>
+<bean class="rpcServer.thrift.ThriftServiceServerFactory" init-method="init" destroy-method="close">
     <property name="service" ref="userService"></property>
     <property name="port" value="9090"></property>
     <property name="addressReporter" ref="sericeAddressReporter"></property>
+    <property name="servicePath" value="demo/bj/rpc"></property>
 </bean>
 
 </beans>

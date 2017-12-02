@@ -1,4 +1,4 @@
-package rpcServer;
+package rpcServer.thrift;
 
 import org.apache.http.conn.util.InetAddressUtils;
 import java.net.InetAddress;

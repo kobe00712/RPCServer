@@ -7,6 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rpcClient.zookeeper.ThriftServer;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
 /*
  * 获取连接池中的一个thrift client
  */
@@ -24,12 +28,31 @@ public class ThriftServiceClientConfig{
 	private Integer idleTime = 10000;
 	private Integer timeout = 10;
 	private ThriftServer serverAddressProvider;
+	private String service;
 	private ThriftClientPool clientPool;
+	private Object proxyClient;
+	private Class objectClass;
 
 	public void load() throws Exception {
 		//异步执行
 		thriftThread thread = new thriftThread();
 		thread.start();
+	}
+
+	public String getService() {
+		return service;
+	}
+
+	public void setService(String service) {
+		this.service = service;
+	}
+
+	public Object getProxyClient() {
+		return proxyClient;
+	}
+
+	public void setProxyClient(Object proxyClient) {
+		this.proxyClient = proxyClient;
 	}
 
 	private class thriftThread extends Thread {
@@ -42,7 +65,6 @@ public class ThriftServiceClientConfig{
 				logger.info(Thread.currentThread().getName());
 				ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 				// 加载Client.Factory类 // *) 内部类的表, 不用'.', 而使用'$'分割
-				String service = "rpc.thrift.idl.rpcEngine";
 				@SuppressWarnings("unchecked")
 				Class<TServiceClientFactory<TServiceClient>> fi = (Class<TServiceClientFactory<TServiceClient>>) classLoader.loadClass(service + "$rpcClient.Client$Factory");
 				TServiceClientFactory<TServiceClient> clientFactory = fi.newInstance();
@@ -50,7 +72,22 @@ public class ThriftServiceClientConfig{
 				//获取client连接池
 				ThriftClientPool clientPool = new ThriftClientPool(poolConfig, serverAddressProvider, clientFactory, timeout);
 				setClientPool(clientPool);
-			} catch (Exception e) {
+				proxyClient = Proxy.newProxyInstance(classLoader,new Class[]{objectClass},new InvocationHandler() {
+					@Override
+					public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+						//
+						TServiceClient client = clientPool.getResource();
+						try{
+							return method.invoke(client, args);
+						}catch(Exception e){
+							throw e;
+						}finally{
+							clientPool.getResource();
+						}
+					}
+				});
+		} catch (Exception e) {
+
 				e.printStackTrace();
 			}
 		}
