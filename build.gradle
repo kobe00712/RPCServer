@@ -14,7 +14,6 @@ repositories {
 
 
 compileJava {
-    baseName = 'rpc-demo'
     sourceCompatibility = '1.8'
     options.encoding = 'utf-8'
     doFirst {
