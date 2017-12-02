@@ -23,6 +23,7 @@ import monitor.influxdbClient.InfluxDBClient;
 import org.influxdb.dto.Point;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import rpcServer.zookeeper.impl.FixedAddressProvider;
 
 import java.text.DecimalFormat;
 import java.util.Map;
@@ -145,7 +146,7 @@ public class StatsUtil {
         DecimalFormat mbFormat = new DecimalFormat("#0.00");
         Point point1 = Point.measurement(name)
                 .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-                .tag("host", GetLocalIP.getLocalHostName())
+                .tag("host", new FixedAddressProvider().getServerAddress())
                 .addField("count",totalResult.totalCount)
                 .addField("p75Access",snapshot.get75thPercentile())
                 .addField("p95Access",snapshot.get95thPercentile())
