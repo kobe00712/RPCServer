@@ -13,23 +13,23 @@
 
 <!-- zookeeper -->
     <!-- zookeeper -->
-    <bean id="thriftZookeeper" class="rpcServer.zookeeper.impl.ZookeeperFactory"
+    <bean id="thriftZookeeper" class="zookeeper.impl.ZookeeperFactory"
           destroy-method="close">
         <property name="zkHosts"
                   value="192.168.36.54:2181,192.168.36.99:2181,192.168.36.189:2181" />
-        <property name="namespace" value="cn.slimsmart.thrift.rpc.demo" />
+        <property name="namespace" value="sgcc" />
         <property name="connectionTimeout" value="3000" />
         <property name="sessionTimeout" value="3000" />
         <property name="singleton" value="true" />
     </bean>
     <bean id="sericeAddressRegister"
-          class="rpcServer.zookeeper.impl.ThriftServerAddressRegisterZookeeper"
+          class="zookeeper.impl.ThriftServerAddressRegisterZookeeper"
           destroy-method="close">
         <property name="zkClient" ref="thriftZookeeper" />
     </bean>
     <bean id="accountSerivceImpl" class="rpcServer.DemoService" />
 
-    <bean id="demoSerivce" class="rpcServer.zookeeper.impl.ThriftServiceServerFactory"
+    <bean id="demoSerivce" class="zookeeper.impl.ThriftServiceServerFactory"
           destroy-method="close">
         <property name="service" ref="accountSerivceImpl" />
         <property name="port" value="9000" />

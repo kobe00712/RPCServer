@@ -1,4 +1,4 @@
-package rpcServer.zookeeper.impl;
+package zookeeper.impl;
 
 /**
  *

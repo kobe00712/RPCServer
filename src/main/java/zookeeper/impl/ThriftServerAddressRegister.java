@@ -1,4 +1,4 @@
-package rpcServer.zookeeper.impl;
+package zookeeper.impl;
 
 /**
  * 发布服务地址及端口到服务注册中心，这里是zookeeper服务器

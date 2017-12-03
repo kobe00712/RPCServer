@@ -23,7 +23,7 @@ import monitor.influxdbClient.InfluxDBClient;
 import org.influxdb.dto.Point;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import rpcServer.zookeeper.impl.FixedAddressProvider;
+import zookeeper.impl.FixedAddressProvider;
 
 import java.text.DecimalFormat;
 import java.util.Map;

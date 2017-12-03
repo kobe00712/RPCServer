@@ -1,4 +1,4 @@
-package rpcServer.zookeeper;
+package zookeeper;
 
 public class ZookeeperFactory {
 }

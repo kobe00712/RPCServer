@@ -1,4 +1,4 @@
-package rpcServer.zookeeper.impl;
+package zookeeper.impl;
 
 import java.io.Closeable;
 import java.io.UnsupportedEncodingException;
@@ -42,6 +42,7 @@ public class ThriftServerAddressRegisterZookeeper implements ThriftServerAddress
         }
         //临时节点
         try {
+            System.out.println("regster path:"+"/"+service+"/"+version+"/"+address);
             zkClient.create()
                     .creatingParentsIfNeeded()
                     .withMode(CreateMode.EPHEMERAL)

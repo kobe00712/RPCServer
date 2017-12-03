@@ -1,4 +1,4 @@
-package rpcServer.zookeeper.impl;
+package zookeeper.impl;
 
 import java.io.Closeable;
 import java.lang.instrument.IllegalClassFormatException;
