@@ -2,6 +2,7 @@ group 'com.rpc'
 //version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+archivesBaseName = 'client'
 
 sourceCompatibility = 1.8
 
