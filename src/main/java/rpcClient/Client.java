@@ -25,7 +25,7 @@ public class Client {
 
     public static void spring() {
         try {
-            final ApplicationContext context = new ClassPathXmlApplicationContext("spring-context-thrift-client.xml");
+            final ApplicationContext context = new ClassPathXmlApplicationContext("ClientZookeeper.xml");
             Account.Iface clientSerivce = (Account.Iface) context.getBean("clientSerivce");
             Request request = new Request();
             request.setName("wang xiao 2");

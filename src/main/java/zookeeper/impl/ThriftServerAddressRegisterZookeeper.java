@@ -42,15 +42,23 @@ public class ThriftServerAddressRegisterZookeeper implements ThriftServerAddress
         }
         //临时节点
         try {
+            System.out.println("is connected:" + zkClient.getZookeeperClient().isConnected());
+            System.out.println("connect staring:" + zkClient.getZookeeperClient().getCurrentConnectionString());
+
             System.out.println("regster path:"+"/"+service+"/"+version+"/"+address);
+
             zkClient.create()
                     .creatingParentsIfNeeded()
                     .withMode(CreateMode.EPHEMERAL)
                     .forPath("/"+service+"/"+version+"/"+address);
+            System.out.println("finish register");
         } catch (UnsupportedEncodingException e) {
+            System.out.println(e.getMessage());
             logger.error("register service address to zookeeper exception:{}",e);
             throw new ThriftException("register service address to zookeeper exception: address UnsupportedEncodingException", e);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
+
             logger.error("register service address to zookeeper exception:{}",e);
             throw new ThriftException("register service address to zookeeper exception:{}", e);
         }

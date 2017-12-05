@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans [
+		<!ELEMENT beans (bean)*>
+		<!ATTLIST beans
+				xmlns CDATA #REQUIRED
+				xmlns:xsi CDATA #REQUIRED
+				xmlns:context CDATA #REQUIRED
+				xmlns:aop CDATA #REQUIRED
+				xmlns:tx CDATA #REQUIRED
+				xsi:schemaLocation CDATA #REQUIRED
+				default-lazy-init CDATA #REQUIRED>
+		<!ELEMENT bean (property)*>
+		<!ATTLIST bean
+				class CDATA #REQUIRED
+				destroy-method CDATA #IMPLIED
+				id CDATA #IMPLIED>
+		<!ELEMENT property (bean)*>
+		<!ATTLIST property
+				name CDATA #REQUIRED
+				ref CDATA #IMPLIED
+				value CDATA #IMPLIED>
+		]>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	   xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
@@ -24,8 +45,8 @@
 	<bean id="thriftZookeeper" class="zookeeper.impl.ZookeeperFactory"
 		  destroy-method="close">
 		<property name="zkHosts"
-				  value="192.168.1.90:2181" />
-		<property name="namespace" value="cn.slimsmart.thrift.rpc.demo" />
+				  value="127.0.0.1:2181" />
+		<property name="namespace" value="sgcc" />
 		<property name="connectionTimeout" value="3000" />
 		<property name="sessionTimeout" value="3000" />
 		<property name="singleton" value="true" />
@@ -35,7 +56,7 @@
 		<property name="idleTime" value="1800000" />
 		<property name="serverAddressProvider">
 			<bean class="zookeeper.impl.ThriftServerAddressProviderZookeeper">
-				<property name="service" value="rpc.slimsmart.thrift.rpc.demo.EchoSerivce" />
+				<property name="service" value="sgepri.sgcc.demo.Account" />
 				<property name="version" value="1.0.0" />
 				<property name="zkClient" ref="thriftZookeeper" />
 			</bean>

@@ -78,6 +78,7 @@ public class ThriftServerAddressProviderZookeeper implements ThriftServerAddress
         if (zkClient.getState() == CuratorFrameworkState.LATENT) {
             zkClient.start();
         }
+        System.out.println("path is :" +getService());
         buildPathChildrenCache(zkClient, getServicePath(), true);
         cachedPath.start(StartMode.POST_INITIALIZED_EVENT);
         countDownLatch.await();
