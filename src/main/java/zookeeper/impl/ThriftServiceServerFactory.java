@@ -63,6 +63,7 @@ public class ThriftServiceServerFactory implements InitializingBean,Closeable{
 
     @Override
     public void afterPropertiesSet() throws Exception {
+        System.out.println("...   after Properties ..");
         if (thriftServerIpResolve == null) {
             thriftServerIpResolve = new ThriftServerIpLocalNetworkResolve();
         }
@@ -129,9 +130,11 @@ public class ThriftServiceServerFactory implements InitializingBean,Closeable{
         public void run(){
             try{
                 //启动服务
+                System.out.print("server is runing");
                 server.serve();
             }catch(Exception e){
                 //
+                System.out.println(e.getStackTrace());
             }
         }
 
